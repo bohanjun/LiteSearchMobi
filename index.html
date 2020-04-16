@@ -1,4 +1,130 @@
-var engine_id=0,engine_holder_id=1,has_folded=0;
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="https://ui.piterator.xyz/quligem-ui/css/quligem.css" rel="stylesheet" />
+    <script src="https://static.piterator.com/node_modules/jquery/dist/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <title>Lite Search - 轻搜索</title>
+    <style>
+        .holders{
+            position: relative;
+            height: 84px;
+            min-width: 720px;
+            width: 40%;
+            margin: auto;
+            text-align: center;
+        }
+        #search_box{
+            height: 84px;
+            width: 100%;
+            display: block;
+            margin-top: 1.2em;
+            border-radius: 24px;
+            border: 3px solid rgb(0,181,173);
+            color: rgb(0,181,173);
+            padding-left: 24px;
+            padding-right: 192px;
+            box-sizing: border-box;
+            font-weight: 100;
+            outline: none;
+        }
+        #search_btn{
+            height: 84px;
+            width: 176px;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            border: 3px solid rgb(0,181,173);
+            box-sizing: border-box;
+            font-weight: 100;
+            border-radius: 0px 24px 24px 0px;
+        }
+        .engines{
+            height: 84px;
+            margin-top: 1.26em;
+            border: 3px solid rgb(0,181,173);
+            box-sizing: border-box;
+            font-weight: 100;
+        }
+        #engines_fold{
+            height: 84px;
+            margin-top: 1.2em;
+            width: 720px;
+            border: 3px solid rgb(0,181,173);
+            box-sizing: border-box;
+            font-weight: 100;
+        }
+        .engines_holders{
+            height: 94px;
+        }
+        *{
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body onkeypress="if(event.keyCode==13)start()">
+    <div style="height: 160px; box-sizing: border-box;"></div>
+    <h1 class="header teal center" style="font-size: 2.5em">轻搜索 Lite Search</h1>
+    <div class="holders">
+        <input id="search_box" name="search_box" placeholder="搜索无需繁琐" />
+        <span class="button teal reversal" id="search_btn" onclick="start()">开始</span>
+    </div>
+    <div class="holders engines_holders" id="enghld_1">
+        <div style="height: 10px; box-sizing: border-box;"></div>
+        <span class="button teal reversal engines" id="baidu" onclick="baidu()">百度</span>
+        <span class="button teal engines" id="bing" onclick="bing()">必应国内版</span>
+        <span class="button teal engines" id="bing_gob" onclick="bing_gob()">必应国际版</span>
+    </div>
+    <div class="holders engines_holders" id="enghld_2">
+        <div style="height: 10px; box-sizing: border-box;"></div>
+        <span class="button teal engines" id="_360" onclick="_360()">360搜索</span>
+        <span class="button teal engines" id="sogou" onclick="sogou()">搜狗搜索</span>
+        <span class="button teal engines" id="github" onclick="github()">GitHub</span>
+    </div>
+    <div class="holders engines_holders" id="enghld_3">
+        <div style="height: 10px; box-sizing: border-box;"></div>
+        <span class="button teal engines" id="gitee" onclick="gitee()">码云 Gitee</span>
+        <span class="button teal engines" id="oschina" onclick="oschina()">OSCHINA</span>
+        <span class="button teal engines" id="youdao" onclick="youdao()">有道词典</span>
+    </div>
+    <div class="holders engines_holders" id="enghld_4">
+        <div style="height: 10px; box-sizing: border-box;"></div>
+        <span class="button teal engines" id="moegirl" onclick="moegirl()">萌娘百科</span>
+        <span class="button teal engines" id="dnspod" onclick="dnspod()">DNSPod 域名注册</span>
+    </div>
+    <div class="holders engines_holders" id="enghld_5">
+        <div style="height: 10px; box-sizing: border-box;"></div>
+        <span class="button teal engines" id="wanwang" onclick="wanwang()">万网域名注册</span>
+        <span class="button teal engines" id="zhihu" onclick="zhihu()">知乎</span>
+        <span class="button teal engines" id="bilibili" onclick="bilibili()">哔哩哔哩</span>
+    </div>
+    <div class="holders engines_holders" id="enghld_6">
+        <div style="height: 10px; box-sizing: border-box;"></div>
+        <span class="button teal engines" id="luogu" onclick="luogu()">洛谷</span>
+        <span class="button teal engines" id="csdn" onclick="csdn()">CSDN</span>
+        <span class="button teal engines" id="taobao" onclick="taobao()">淘宝网</span>
+    </div>
+    <div class="holders engines_holders" id="enghld_7">
+        <div style="height: 10px; box-sizing: border-box;"></div>
+        <span class="button teal engines" id="jd" onclick="jd()">京东</span>
+        <span class="button teal engines" id="yhd" onclick="yhd()">1号店</span>
+        <span class="button teal engines" id="tmall" onclick="tmall()">天猫</span>
+    </div>
+    <div class="holders">
+        <div style="height: 10px; box-sizing: border-box;"></div>
+        <span class="button teal reversal" id="engines_fold" onclick="engines_fold()">折叠</span>
+    </div>
+    <div class="teal">
+        <div style="height: 40px; box-sizing: border-box;"></div>
+        <p style="text-align: center">
+            Copyright &copy; <a href="https://www.piterator.com/" class="link teal" target="_blank">Piterator</a> 2017 - 2020. 
+            <br />
+            All rights reserved.
+        </p>
+    </div>
+    <script>
+        var engine_id=0,engine_holder_id=1,has_folded=0;
         function start(){
             var url_jump;
             if(engine_id==0)url_jump="https://www.baidu.com/s?ie=UTF-8&wd="+document.getElementById("search_box").value;
@@ -186,3 +312,6 @@ var engine_id=0,engine_holder_id=1,has_folded=0;
             else if(url_e==18)yhd(),engines_fold();
             else if(url_e==19)tmall(),engines_fold();
         }
+    </script>
+</body>
+</html>
